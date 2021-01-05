@@ -1,0 +1,50 @@
+package common.board;
+
+public class BoardVO {
+	private int boardNO;
+	private String title;
+	private String content;
+	private String writer;
+	private String creationDate;
+	
+	
+	public int getBoardNO() {
+		return boardNO;
+	}
+	public void setBoardNO(int boardNO) {
+		this.boardNO = boardNO;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	public String getCreationDate() {
+		return creationDate;
+	}
+	public void setCreationDate(String creationDate) {
+		this.creationDate = creationDate;
+	}
+	@Override
+	public String toString() {
+		return "BoardVO [boardNO=" + boardNO + ", title=" + title + ", content=" + content + ", writer=" + writer
+				+ ", creationDate=" + creationDate + "]";
+	}
+	
+	
+	
+	
+}
