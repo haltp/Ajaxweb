@@ -57,4 +57,35 @@ public class BoardDAO {
 		return cnt == 1 ? true : false;
 
 	}
+	
+	public List<BoardVO> getborList() {
+		List<BoardVO> list = new ArrayList<>();
+		String sql = "select * from boards order by 1";
+		
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setBoardNO(rs.getInt("board_no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setWriter(rs.getString("writer"));
+				vo.setCreationDate(rs.getString("creation_date"));
+				
+				list.add(vo);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	} //end of getEmpList()
 }

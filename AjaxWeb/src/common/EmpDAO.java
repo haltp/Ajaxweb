@@ -30,16 +30,62 @@ public class EmpDAO {
 			System.out.println("Unkonwn error");
 			e.printStackTrace();
 		}
-	}//end of 생성자
-	
+	}// end of 생성자
+
+	// insert만들어보자
+	public boolean insertEmp(EmployeeVO vo) {
+		String sql = "insert into emp_tempp(employee_id, first_name, last_name, email, hire_date, job_id)\r\n"
+				+ "values(employees_seq.nextval, ?, ?, ?, sysdate, ?)";
+		int r = 0;
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getFirstName());
+			psmt.setString(2, vo.getLastName());
+			psmt.setString(3, vo.getEmail());
+			psmt.setString(4, vo.getJobId());
+			
+			r = psmt.executeUpdate();
+			System.out.println(r+"건이 입력됨");
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return r == 1? true : false; //한건만 들어가게
+
+	}
+
+	// 삭제하는거 만들어보기
+	public boolean deleteEmp(EmployeeVO vo) {
+		String sql = "delete from emp_tempp where employee_id=?";
+		int r = 0;
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, vo.getEmployeeId());
+
+			r = psmt.executeUpdate();
+			System.out.println(r + "건 삭제됨.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return r == 1 ? true : false;
+	}
+
 	public List<EmployeeVO> getEmpList() {
-		String sql = "select * from employees";
+		String sql = "select * from emp_tempp order by 1 desc";
 		List<EmployeeVO> list = new ArrayList<>();
-		
+
 		try {
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			ResultSet rs = psmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				EmployeeVO vo = new EmployeeVO();
 				vo.setEmployeeId(rs.getInt("employee_id"));
 				vo.setFirstName(rs.getString("first_name"));
@@ -49,9 +95,9 @@ public class EmpDAO {
 				vo.setHireDate(rs.getString("hire_date"));
 				vo.setJobId(rs.getString("job_id"));
 				vo.setSalary(rs.getInt("salary"));
-				
+
 				list.add(vo);
-				
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -62,8 +108,8 @@ public class EmpDAO {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return list;
-	} //end of getEmpList()
+	} // end of getEmpList()
 
 }
