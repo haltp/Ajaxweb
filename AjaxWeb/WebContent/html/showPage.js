@@ -44,7 +44,7 @@ function contentRow(result) {
 	for (let j = 0; j < result.length; j++) {
 		let trTag = document.createElement('tr');
 		trTag.onmouseover = function() {
-			trTag.style.backgroundColor = 'yellow';
+			trTag.style.backgroundColor = 'blue';
 		}
 		trTag.onmouseout = function() {
             trTag.style.backgroundColor = '';
