@@ -18,6 +18,7 @@ public class UpdateServelt extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String eid = request.getParameter("eid");
 		String fName = request.getParameter("fName");
 		String lName = request.getParameter("lName");
 		String email = request.getParameter("email");
@@ -26,6 +27,7 @@ public class UpdateServelt extends HttpServlet {
 		String jobId = request.getParameter("jobId");
 
 		EmployeeVO vo = new EmployeeVO();
+		vo.setEmployeeId(Integer.parseInt(eid));
 		vo.setFirstName(fName);
 		vo.setLastName(lName);
 		vo.setEmail(email);
@@ -34,22 +36,20 @@ public class UpdateServelt extends HttpServlet {
 		vo.setHireDate(hireDate);
 
 		EmpDAO dao = new EmpDAO();
-		EmployeeVO v = dao.insertEmp(vo);
+		EmployeeVO v = dao.updateEmp(vo);
 		String result = "<result>";
-		result += "<empId>" + v.getEmployeeId() + "</empId>";
-		result += "<fName>" + v.getFirstName() + "</fName>";
-		result += "<lName>" + v.getLastName() + "</lName>";
-		result += "<email>" + v.getEmail() + "</email>";
-		result += "<phoneNumber>" + v.getPhoneNumber() + "</phoneNumber>";
-		result += "<hDate>" + v.getHireDate() + "</hDate>";
-		result += "<jId>" + v.getJobId() + "</jId>";
-		result += "<salary>" + v.getSalary() + "</salary>";
-		result += "</result>";
+		result +="<empId>"+v.getEmployeeId()+"</empId>";
+		result +="<fName>"+v.getFirstName()+"</fName>";
+		result +="<lName>"+v.getLastName()+"</lName>";
+		result +="<email>"+v.getEmail()+"</email>";
+		result +="<phoneNumber>"+v.getPhoneNumber()+"</phoneNumber>";
+		result +="<hDate>"+v.getHireDate()+"</hDate>";
+		result +="<jId>"+v.getJobId()+"</jId>";
+		result +="<salary>"+v.getSalary()+"</salary>";
+		result +="</result>";
 
 		response.getWriter().append(result);
-
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

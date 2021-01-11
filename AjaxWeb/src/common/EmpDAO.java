@@ -106,12 +106,9 @@ public class EmpDAO {
 		String sql = "update emp_tempp SET FIRST_NAME = ?, LAST_NAME=?, EMAIL=?, PHONE_NUMBER=?, JOB_ID=?"
 				+ "where EMPLOYEE_ID = ?";
 		int r = 0;
-		EmployeeVO newVO = new EmployeeVO();
 		try {
 			PreparedStatement psmt = conn.prepareStatement(sql);
-			ResultSet rs = psmt.executeQuery();
 			
-			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getFirstName());
 			psmt.setString(2, vo.getLastName());
 			psmt.setString(3, vo.getEmail());
@@ -121,7 +118,8 @@ public class EmpDAO {
 
 			r = psmt.executeUpdate();
 			System.out.println(r + "건이 수정됨");
-
+			
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -132,7 +130,7 @@ public class EmpDAO {
 				e.printStackTrace();
 			}
 		}
-		return newVO;
+		return vo;
 
 	}
 
