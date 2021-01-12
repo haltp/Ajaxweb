@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자</title>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        let persons = [];
+        persons.push('Hong');
+        persons.push('Hwang');
+        persons.push('Park');
+
+        $(document).ready(function () {
+            let ulTag = $('<ul />').attr('id', 'main');
+            $.each(persons, function (a, b) {
+                console.log(a, b);
+                ulTag.append($('<li />').html(b));
+            })
+            console.log(ulTag);
+            $('body').append(ulTag);
+
+            let table = $('<table border="1"/>').attr('id', 'table');
+            $(persons).each(function (a, b) {
+                let trTag = $('<tr />');
+                $(trTag).mouseover(function () {
+                    //console.log($(this));
+                    $(this).css('background-color','yellow');
+                });
+                $(trTag).mouseout(function () {
+                    //console.log($(this));
+                    $(this).css('background-color','');
+                });
+
+
+                let tdTag = $('<td />').html(b);
+                trTag.append(tdTag);
+
+                let btnTag = $('<td />');
+                let btn = $('<button />').html('OK');
+                $(btn).click(function() {
+                    $(this).parent().parent().remove();
+                });
+
+                btnTag.append(btn);
+                trTag.append(btnTag);
+
+                table.append(trTag);
+                $('body').append(table);
+            })
+        });
+    </script>
+</head>
+
+<body>
+
+</html>
